@@ -25,6 +25,7 @@ extra-source-files: GHC/RTS/EventLogFormat.h,
 source-repository head
   type: darcs
   location:         https://github.com/majsaeed/Ghc-events-hdph.git
+                    Original, http://code.haskell.org/ghc-events/
           
 
 library
