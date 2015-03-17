@@ -1,0 +1,57 @@
+name:             ghc-events-hdph
+version:          0.4.2.0
+synopsis:         Library and tool for parsing HdpH .eventlog files from GHC-PPS
+description:      This is a forked version of the ghc-events library for the DSL HdpH
+                  to Parses HdpH .eventlog files emitted by GHC 6.12.1 and later.
+                  Includes the ghc-events-hdph tools permitting, in particular,
+                  to present performance profiles for HdpH internals.
+category:         Development, GHC, Debug, Profiling, Trace
+license:          BSD3
+license-file:     LICENSE
+author:           Majed Al Saeed <maj.saeed@gmail.com>,
+                  Donnie Jones <donnie@darthik.com>,
+                  Simon Marlow <marlowsd@gmail.com>,
+                  Paul Bone <pbone@csse.unimelb.edu.au>,
+                  Duncan Coutts <duncan@well-typed.com>,
+                  Nicolas Wu <nick@well-typed.com>,
+                  Mikolaj Konarski <mikolaj@well-typed.com>
+maintainer:       Majed Al Saeed <maj.saeed@gmail.com>
+build-type:       Simple
+tested-with:      GHC == 6.12.3, GHC == 7.0.4, GHC == 7.2.1, GHC == 7.4.1, GHC == 7.6.1
+cabal-version:    >= 1.8
+extra-source-files: GHC/RTS/EventLogFormat.h,
+                    test/*.eventlog
+
+source-repository head
+  type: darcs
+  location:         https://github.com/majsaeed/Ghc-events-hdph.git
+          
+
+library
+  build-depends:    base       == 4.*,
+                    mtl        >= 1.1 && < 3.0,
+                    containers >= 0.2 && < 0.6,
+                    binary     >= 0.5 && < 0.7,
+                    bytestring >= 0.9.0,
+                    array      >= 0.2 && < 0.5
+  exposed-modules:  GHC.RTS.Events,
+                    GHC.RTS.Events.Merge
+                    GHC.RTS.Events.Analysis
+                    GHC.RTS.Events.Analysis.Capability
+                    GHC.RTS.Events.Analysis.SparkThread
+                    GHC.RTS.Events.Analysis.Thread
+  other-modules:    GHC.RTS.EventParserUtils,
+                    GHC.RTS.EventTypes
+  include-dirs:     GHC/RTS
+  extensions:	    RecordWildCards, NamedFieldPuns, BangPatterns, PatternGuards
+
+executable ghc-events-hdph
+  main-is:          GhcEvents-hdph.hs
+  build-depends:    base, mtl, containers, binary, bytestring, array
+  extensions:	    RecordWildCards, NamedFieldPuns, BangPatterns, PatternGuards
+
+test-suite test-versions
+  type:             exitcode-stdio-1.0
+  main-is:          test/TestVersions.hs
+  build-depends:    base, mtl, containers, binary, bytestring, array
+  extensions:	    RecordWildCards, NamedFieldPuns, BangPatterns, PatternGuards
